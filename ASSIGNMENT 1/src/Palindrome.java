@@ -21,10 +21,13 @@ public class Palindrome {
     private Node rear;
 
 
-
-
     public void pop() {
-        top = top.next;
+        if (!stackEmpty()) {
+            top = top.next;
+        }
+        else {
+            System.out.println("EMPTY STACK ERROR");
+        }
     }
 
     public void push(String value) {
@@ -34,11 +37,23 @@ public class Palindrome {
     }
 
     public void enqueue(String value) {
-        rear = new Node(value);
+        if (queueEmpty())
+        {
+            front = new Node(value);
+        }
+        else {
+            rear = new Node(value);
+        }
     }
 
     public void dequeue() {
-        front = front.next;
+        if (!queueEmpty())
+        {
+            front = front.next;
+        }
+        else {
+            System.out.println("EMPTY QUEUE ERROR");
+        }
     }
 
     public boolean queueEmpty() {
@@ -69,7 +84,6 @@ public class Palindrome {
 
             for (int j=0; j<line.length(); j++)
             {
-                //front = word[0];
 
                 if (front == top)
                 {
