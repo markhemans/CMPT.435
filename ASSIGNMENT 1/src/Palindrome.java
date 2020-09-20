@@ -70,13 +70,12 @@ public class Palindrome {
         try {
 
             String line = reader.readLine();
-            String[] word = new String[line.length()];
+            Node words[] = new Node[line.length()];
 
             for (int i=0; i<line.length(); i++)
             {
-                String a = line.substring(i);
-                word[i] = a;
-                new Node(a);
+                String a = line.substring(i).toUpperCase();
+                words[i] = new Node(a);
                 push(a);
                 enqueue(a);
             }
@@ -98,7 +97,6 @@ public class Palindrome {
                     pop();
                     dequeue();
                 }
-
 
             }
 
