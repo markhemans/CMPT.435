@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Palindrome {
 
@@ -10,57 +9,71 @@ public class Palindrome {
     {
         String value;
         Node next;
+
+        Node(String value)
+        {
+            this.value = value;
+
+        }
+
+
     }
 
-    private Node top;
 
+    private Node top;
     private Node front;
     private Node rear;
 
 
-    public void pop() {
+    public void pop(String value) {
             top = top.next;
-
 
     }
 
     public void push(String value) {
         Node prevTop = top;
-        top = new Node();
-        top.value = value;
+        top = new Node(value);
         top.next = prevTop;
     }
 
     public void enqueue(String value) {
-        rear = new Node();
-        rear.value = value;
+        rear = new Node(value);
+
+
     }
 
-    public void dequeue() {
-
+    public void dequeue(String value) {
         front = front.next;
 
     }
 
     public Palindrome() throws IOException {
-        ArrayList<String> palindrome = new ArrayList<>();
+
         BufferedReader reader = new BufferedReader((new FileReader("magicitems.txt")));
         try {
+
             String line = reader.readLine();
 
             for (int i=0; i<line.length(); i++)
             {
                 String a = line.substring(i);
+                new Node(a);
                 push(a);
                 enqueue(a);
+
             }
+
+
 
             for (int j=0; j<line.length(); j++)
             {
-                if (front.value == top.value)
+
+                if (front == top)
                 {
                     System.out.println("Its a palindrome");
+
                     pop();
+
                     dequeue();
                 }
                 else
@@ -70,7 +83,7 @@ public class Palindrome {
                     dequeue();
                 }
 
-                reader.readLine();
+                 reader.readLine();
 
             }
 
@@ -78,7 +91,7 @@ public class Palindrome {
             ioException.printStackTrace();
         }
 
-reader.close();
+    reader.close();
     }
 
 
@@ -87,12 +100,9 @@ reader.close();
 
     public static void main(String[] args) throws IOException {
 
+    new Palindrome();
 
     }
-
-
-
-
 
 
 }
