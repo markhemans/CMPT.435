@@ -22,7 +22,8 @@ public class Palindrome {
 
 
     public void pop() {
-        if (!stackEmpty()) {
+        if (!stackEmpty())
+        {
             top = top.next;
         }
         else {
@@ -40,6 +41,8 @@ public class Palindrome {
         if (queueEmpty())
         {
             front = new Node(value);
+            rear = front;
+            front.next = rear;
         }
         else {
             rear = new Node(value);
@@ -74,17 +77,24 @@ public class Palindrome {
 
             for (int i=0; i<line.length(); i++)
             {
-                String a = line.substring(i).toUpperCase();
+                String a = String.valueOf(line.charAt(i));
+
+
                 words[i] = new Node(a);
+
+
+
                 push(a);
                 enqueue(a);
+
+
             }
 
 
             for (int j=0; j<line.length(); j++)
             {
 
-                if (front == top)
+                if (rear == top)
                 {
                     System.out.println("It's a palindrome.");
                     pop();
