@@ -9,9 +9,9 @@ public class Palindrome {
         String value;
         Node next;
 
-        Node(String value)
+        Node(String x)
         {
-            this.value = value;
+            this.value = x;
         }
 
     }
