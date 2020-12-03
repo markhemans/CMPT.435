@@ -9,17 +9,19 @@ public class UndirectedGraph {
     public static void addEdge(ArrayList<ArrayList<Integer>> graph, int firstVertex, int secondVertex)
         {
             graph.get(firstVertex).add(secondVertex);
-            graph.get(secondVertex).add(secondVertex);
+            graph.get(secondVertex).add(firstVertex);
         }
 
 
     static void printGraph(ArrayList<ArrayList<Integer>> graph)
         {
-            for (int i = 0; i < graph.size(); i++) {
-                System.out.println("\nVertex " + i + ":");
-                for (int j = 0; j < graph.get(i).size(); j++) {
-                    System.out.print(" -> " + graph.get(i).get(j));
-                }
+            for (int i = 0; i < graph.size(); i++)
+                {
+                    System.out.println("Vertex " + i + ":");
+                    for (int j = 0; j < graph.get(i).size(); j++)
+                        {
+                            System.out.print(" -> " + graph.get(i).get(j));
+                        }
                 System.out.println();
             }
         }
@@ -31,33 +33,35 @@ public class UndirectedGraph {
                 BufferedReader br = new BufferedReader(new FileReader(FILE_NAME));
                 String line = "";
                 line = br.readLine();
-                ArrayList<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
+                ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
 
-                if (line.startsWith("n"))
-                {
-                    graph = new ArrayList<ArrayList<Integer>>();
-                }
-
-                else {
+                if (line.startsWith("n")) {
+                    graph = new ArrayList<ArrayList<Integer>>(0);
+                } else {
 
                     while (line != null) {
 
-
                         // add vertex
-                        if (line.contains("vertex")) {
+                        if (line.contains("add vertex")) {
                             graph.add(new ArrayList<>());
-                            line = br.readLine();
+
                         }
 
                         // add edge
-                        else if (line.contains("edge")) {
-                            addEdge(graph, line.charAt(10), line.charAt(14));
-                            line = br.readLine();
+                        else if (line.contains("add edge")) {
+                            char parseEdge1 = line.charAt(9);
+                            char parseEdge2 = line.charAt(13);
+
+                            int firstEdge = Character.getNumericValue(parseEdge1);
+                            int secondEdge = Character.getNumericValue(parseEdge2);
+
+                            addEdge(graph,firstEdge, secondEdge);
                         }
 
                         printGraph(graph);
+                        line = br.readLine();
                     }
-                    }
+                }
                     br.close();
                 } catch(Exception ex){
                     ex.printStackTrace();
