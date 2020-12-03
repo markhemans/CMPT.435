@@ -35,11 +35,15 @@ public class UndirectedGraph {
                 line = br.readLine();
                 ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
 
-                if (line.startsWith("n")) {
-                    graph = new ArrayList<ArrayList<Integer>>(0);
-                } else {
+
 
                     while (line != null) {
+
+                        if (line.startsWith("n"))
+                        {
+                            graph.clear();
+                            graph.add(new ArrayList<>());
+                        }
 
                         // add vertex
                         if (line.contains("add vertex")) {
@@ -61,7 +65,7 @@ public class UndirectedGraph {
                         printGraph(graph);
                         line = br.readLine();
                     }
-                }
+
                     br.close();
                 } catch(Exception ex){
                     ex.printStackTrace();
