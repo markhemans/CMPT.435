@@ -1,27 +1,11 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.*;
 
 public class UndirectedGraph {
 
+    private static final String FILE_NAME = "graphs1.txt";
 
-  //  public static ArrayList<ArrayList<Integer>> newGraph()
-    //{
-      //  ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-        //return graph;
-    //}
-
-    // create vertex (inner list)
-    public static void addVertex(ArrayList<Integer> innerGraph, int vertexIndex)
-        {
-            innerGraph.add(vertexIndex);
-        }
-
-    // create vertex (outer list)
-    public static void addVertex(ArrayList<ArrayList<Integer>> graph, ArrayList<Integer> innerGraph, int s)
-        {
-            graph.add(innerGraph);
-        }
-
-    // create an 'edge' between 'vertexes' in a 'graph' of arrayLists
     public static void addEdge(ArrayList<ArrayList<Integer>> graph, int firstVertex, int secondVertex)
         {
             graph.get(firstVertex).add(secondVertex);
@@ -29,20 +13,13 @@ public class UndirectedGraph {
         }
 
 
-
-    // A utility function to print the adjacency list
-    // representation of graph
-    static void printGraph(ArrayList<ArrayList<Integer>> adj)
+    static void printGraph(ArrayList<ArrayList<Integer>> graph)
         {
-            for (int i = 0; i < adj.size(); i++)
-            {
-                System.out.println("\nAdjacency list of vertex" + i);
-                System.out.print("head");
-                for (int j = 0; j < adj.get(i).size(); j++)
-                {
-                    System.out.print(" -> "+adj.get(i).get(j));
+            for (int i = 0; i < graph.size(); i++) {
+                System.out.println("\nVertex " + i + ":");
+                for (int j = 0; j < graph.get(i).size(); j++) {
+                    System.out.print(" -> " + graph.get(i).get(j));
                 }
-
                 System.out.println();
             }
         }
@@ -50,32 +27,41 @@ public class UndirectedGraph {
 
     public static void main(String[] args)
         {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(FILE_NAME));
+                String line = "";
+                line = br.readLine();
+                ArrayList<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
 
-            // Creating a graph with 5 vertices
-            int V = 5;
+                if (line.startsWith("n"))
+                {
+                    graph = new ArrayList<ArrayList<Integer>>();
+                }
 
-            ArrayList<ArrayList<Integer> > adj = new ArrayList<ArrayList<Integer> >(V);
+                else {
 
-            ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-
-            for (int i = 0; i < V; i++)
-            {
-                adj.add(new ArrayList<Integer>());
-            }
+                    while (line != null) {
 
 
+                        // add vertex
+                        if (line.contains("vertex")) {
+                            graph.add(new ArrayList<>());
+                            line = br.readLine();
+                        }
 
+                        // add edge
+                        else if (line.contains("edge")) {
+                            addEdge(graph, line.charAt(10), line.charAt(14));
+                            line = br.readLine();
+                        }
 
-                addEdge(graph,0,1);
-                addEdge(adj, 0, 4);
-                addEdge(adj, 1, 2);
-                addEdge(adj, 1, 3);
-                addEdge(adj, 1, 4);
-                addEdge(adj, 2, 3);
-                addEdge(adj, 3, 4);
-
-                printGraph(adj);
-
+                        printGraph(graph);
+                    }
+                    }
+                    br.close();
+                } catch(Exception ex){
+                    ex.printStackTrace();
+                }
 
         }
     }
