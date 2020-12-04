@@ -6,6 +6,16 @@ public class UndirectedGraph {
 
     private static final String FILE_NAME = "graphs1.txt";
 
+    private boolean adjMatrix[][];
+    private int numVertices;
+
+    // Initialize the matrix
+    public void Graph(int numVertices)
+    {
+        this.numVertices = numVertices;
+        adjMatrix = new boolean[numVertices][numVertices];
+    }
+
     public static void addEdge(ArrayList<ArrayList<Integer>> graph, int firstVertex, int secondVertex)
         {
             graph.get(firstVertex).add(secondVertex);
@@ -17,15 +27,27 @@ public class UndirectedGraph {
         {
             for (int i = 0; i < graph.size(); i++)
                 {
-                    System.out.print( i + ":");
+                    System.out.print("["+ i + "] ");
                     for (int j = 0; j < graph.get(i).size(); j++)
                         {
-                            System.out.print(" -> " + graph.get(i).get(j));
+                            System.out.print(graph.get(i).get(j) +" ");
                         }
                 System.out.println();
             }
-        }
 
+            System.out.println();
+
+
+            // matrix print
+            for (int k = 0; k < graph.size(); k++)
+            {
+                System.out.print(" " +graph.indexOf(graph.get(k)));
+            }
+
+            System.out.println();
+            System.out.println();
+
+        }
 
     public static void main(String[] args)
         {
@@ -86,13 +108,14 @@ public class UndirectedGraph {
                             }
                         }
 
-
                         line = br.readLine();
                     }
 
+                //print final graph
                 printGraph(graph);
 
-                    br.close();
+
+                br.close();
                 } catch(Exception ex){
                     ex.printStackTrace();
                 }
